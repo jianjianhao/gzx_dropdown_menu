@@ -7,12 +7,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 #Dart 运行环境区间
 environment:
-  #  sdk: ">=2.11.0 <3.0.0" # Dart SDK版本号，多人开发建议写死
-  # 健全的空安全已在 Dart 2.12 和 Flutter 2 中可用。
-  # 所以迁移到空安全的
-  # 第一步：升级Flutter到2.0
-  # 第二步：修改Dart SDK范围为2.12.x以上
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   flutter:

@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'gzx_dropdown_menu_test_page.dart';
 
 void main() {
-  print('main');
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

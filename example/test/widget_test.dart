@@ -1,30 +1,34 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:gzx_dropdown_menu_example/main.dart';
+import 'package:gzx_dropdown_menu_example/gzx_dropdown_menu_test_page.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('dropdown page renders header items',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MaterialApp(home: GZXDropDownMenuTestPage()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('全城'), findsOneWidget);
+    expect(find.text('品牌'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.text('品牌'));
+    await tester.pumpAndSettle();
+    expect(find.text('金逸影城'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // 菜单展示中切换到另一个菜单，验证无动画隐藏 + 重新展开的链路。
+    await tester.tap(find.text('距离近'));
+    await tester.pumpAndSettle();
+    expect(find.text('价格低'), findsOneWidget);
+
+    // 两级联动菜单（Row + 两个 ListView）在动画裁剪下不应报溢出。
+    await tester.tap(find.text('全城'));
+    await tester.pumpAndSettle();
+    expect(find.text('1区'), findsOneWidget);
+
+    await tester.tap(find.text('1区'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('街道办'), findsWidgets);
+
+    expect(tester.takeException(), isNull);
   });
 }

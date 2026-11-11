@@ -15,7 +15,8 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: Container(
-        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width / 4, top: 0),
+        margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width / 4, top: 0),
         color: Colors.white,
 //        child: Container(color: Colors.red,child: Padding(
 //          padding: const EdgeInsets.all(8.0),

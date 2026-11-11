@@ -1,11 +1,16 @@
 import 'package:flutter/foundation.dart';
 
 /// GZXDropdownMenuController use to show and hide drop-down menus.
-/// Used for GZXDropdownHeader and GZXDropdownMenu passing[dropDownMenuTop], [menuIndex], [isShow] and [isShowHideAnimation].
+///
+/// Used by [GZXDropDownHeader] and [GZXDropDownMenu] to share
+/// [dropDownMenuTop], [menuIndex], [isShow] and [isShowHideAnimation].
+///
+/// A single controller instance should be shared by one header and one menu
+/// so they stay in sync.
 class GZXDropdownMenuController extends ChangeNotifier {
   /// [dropDownMenuTop] that the GZXDropDownMenu top edge is inset from the top of the stack.
   ///
-  /// Since the GZXDropDownMenu actually returns a Positioned widget, the GZXDropDownMenu must be inside the Stack
+  /// Since the GZXDropDownMenu actually returns a [Positioned] widget, the GZXDropDownMenu must be inside the [Stack]
   /// vertically.
   double? dropDownMenuTop;
 
@@ -30,5 +35,14 @@ class GZXDropdownMenuController extends ChangeNotifier {
     this.isShowHideAnimation = isShowHideAnimation;
     isShow = false;
     notifyListeners();
+  }
+
+  /// Toggle the dropdown menu: hide if [index] is already shown, otherwise show it.
+  void toggle(int index) {
+    if (isShow && menuIndex == index) {
+      hide();
+    } else {
+      show(index);
+    }
   }
 }
